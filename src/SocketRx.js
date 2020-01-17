@@ -3,7 +3,6 @@ import io from 'socket.io-client'
 import cookie from 'js-cookie'
 import { Logger } from '../Utils/Decorator'
 
-@Logger('SocketRx', true)
 class SocketRx {
     constructor() {
         this.sokect = null
@@ -11,7 +10,7 @@ class SocketRx {
         this.robotAction = null
         this.alarmEvent = null
         this.snapEvent = null
-        this.Logger.success('初始化socket.io')
+        console.success('初始化socket.io')
         this.behavitor = null
     }
     connect() {
@@ -20,13 +19,13 @@ class SocketRx {
                 process.env.NODE_ENV !== 'production'
                     ? `${window.location.hostname}:8890`
                     : '/'
-            this.Logger.debug('第一次尝试连接socket.io')
+            console.debug('第一次尝试连接socket.io')
             this.sokect = io(`${url}?token=${cookie.get('token')}`)
             this.sokect.on('connect', () => {
-                this.Logger.success('连接成功')
+                console.success('连接成功')
             })
             this.sokect.on('disconnect', () => {
-                this.Logger.warn('断开连接')
+                console.warn('断开连接')
             })
         }
     }
